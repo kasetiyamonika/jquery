@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Marksheet javaScript</title>
+    <link rel="stylesheet" href="css/marksheet.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script>
+      var total_rows = 1;
+      $(function(){
+        $("#addRow").click(function(){
+        $(".abc").addClass("blue");
+        $("body").css("background-color", "lightgray");
+        $("#demo3").css({"backgroundcolor": "pink" , "font-size": "200%"});
+        $(".img").hide(1000);
+        $(".img").toggle();
+        $(".p").animate({left: '250px'});
+        $(".p").css("color","teal");
+        //$(".img").fadeIn(slow);
+          var tr = '<tr id="student_' + total_rows + '" class="std">' +
+                     '<td><input type="text"></td>' +
+                     '<td><input type="text"></td>' +
+                     '<td><input type="text" data-id="' + total_rows + '" id="maths_' + total_rows + '" class="subject_' + total_rows + '"></td>' +
+                     '<td><input type="text" data-id="' + total_rows + '" id="eng_' + total_rows + '" class="subject_' + total_rows + '"></td>' +
+                     '<td><input type="text" data-id="' + total_rows + '" id="sci_' + total_rows + '" class="subject_' + total_rows + '"></td>' +
+                     '<td id="total_' + total_rows + '" class="totalclass">  </td>' +
+                     '<td id="percentage_' + total_rows + '"></td>' +
+                     '<td><button type="button" data-id="' + total_rows + '" id="deleteRow_' + total_rows + '" class="btn btn-primary outline-btn-dark">Delete</button></td>' +
+                    '</tr>';
+          $("#result").append(tr);
+
+          // Bind Subject
+          $(".subject_" + total_rows).change(function(){
+          $("abc").css("color","yellow");
+            var row_id = $(this).attr('data-id');
+            var a = Number($("#maths_" + row_id).val());
+            var b = Number($("#eng_" + row_id).val());
+            var c = Number($("#sci_" + row_id).val());
+            $("#total_" + row_id).html(a+b+c);
+            $("#percentage_" + row_id).html((a+b+c)/3);
+            summary();
+          });
+
+          // Bind Delete
+          $("#deleteRow_" + total_rows).click(function(){
+            $("img").show(1000);
+            var row_id = $(this).attr('data-id');
+            //console.log(row_id);
+            $("#student_" + row_id).remove();
+            summary();
+          });
+          // Bind Delete(parent thru pan lakhi sakay)
+          // $("#deleteRow_" + total_rows).click(function(){
+          //   $(this).parent().parent().remove();
+          //   summary();
+          // });
+
+          total_rows += 1;
+          summary();
+        });
+      });
+
+      function summary(){
+      	var max = 0;
+    		var min = 600;
+    		var avg = 0;
+        var total = 0;
+        var total_student = $('.totalclass');
+        var total_student_record = total_student.length;
+        if(total_student_record == 0)
+          min = 0;
+
+        for (var i = 0; i < total_student_record; i++){
+          sum = Number(total_student[i].innerHTML);
+          if (sum > max)
+  	     		max = sum;
+  	   		else if (sum < min)
+  	    		min = sum;
+  		    total = total + sum;
+        }
+
+        if(total_student_record > 0)
+          avg = total/total_student_record;
+
+        $("#TS").html(total_student_record);
+      	$("#highest").html(max);
+        $("#lowest").html(min);
+        $("#avarege").html(avg);
+      }
+    </script>
+  </head>
+  <body>
+    <center>
+      <table>
+        <tr>
+          <td class=img><img src="logo.png" height="100%" width="100%"></td>
+          <td class="p">
+            <h1> Shree Ramkrishna Institute </h1>
+            <h3><center> rg.no-123456,Athvalines,surat,gujarat,ph.no:02612554744</center></h3>
+          </td>
+        </tr>
+      </table>
+
+      <br> <br>
+
+      <table width="50%" height="8%" class="demo" >
+        <tr class="a">
+          <th> Teacher Name : Krunal Sir</th>
+          <th>Standard : 10th</th>
+        </tr>
+        <tr class="b" >
+          <th>Division : A</th>
+          <th>Exam Name : SSC</th>
+        </tr>
+      </table>
+
+      <br> <br>
+
+      <table class="demo1" border="1" width="60%" cellspacing="5" cellpading="3"  align="center" id="result">
+        <tr class="abc">
+          <th><b>RollNo</b></th>
+          <th><b>Name</b></th>
+          <th><b>Maths</b></th>
+          <th><b>English</b></th>
+          <th><b>Science</b></th>
+          <th><b>Total</b></th>
+          <th><b> Persentage</b></th>
+          <th><b>Action</b></th>
+        </tr>
+      </table>
+
+      <button type="button" id="addRow" class="btn btn-primary">Add New Row</button>
+
+      <br><br>
+
+      <table class="demo" border="1" cellpading="0" cellspacing="0"  width="45%" id="demo3">
+        <tr class="ab">
+          <h2>Exam Summery</h2>
+        </tr>
+        <tr class="a">
+          <th>Total Student</th>
+          <td id="TS" align="center" width="400"></td>
+        </tr>
+        <tr class="b">
+          <th>Highest</th>
+          <td id="highest" align="center"></td>
+        </tr>
+        <tr class="c">
+          <th >Avarege</th>
+          <td id="avarege" align="center"></td>
+        </tr>
+        <tr class="d">
+          <th>Lowest</th>
+          <td id="lowest" align="center"></td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>

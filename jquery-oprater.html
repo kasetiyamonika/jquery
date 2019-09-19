@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>operator</title>
+    <script src="jquery.min.js"></script>
+  </head>
+  <body>
+      <p id="a"></p>
+      <p id="b"></p>
+      <p id="c"></p>
+      <p id="d"></p>
+      <p id="e"></p>
+      <p id="f"></p>
+      <input type="text1" name="" value="" id="abc">
+      <button type="button" name="button">ok</button>
+</body>
+<script>
+    $(document).ready(function() {
+      $("button").click(function() {
+      var b = $("#abc").val();
+      for (var i = 1; i <= b; i++) {
+       $('#f').html(i);
+      }
+    var a = 10;
+    a += 450;
+    $("#a").html(a);
+    var b = 55 +"monika";
+    $("#b").html(b);
+    var d = myfun(12,5);
+    function myfun(a,b)
+    {
+        return a * b;
+    }
+    $('#c').html(d);
+    var detail={ name:"monika" , surname:"kasetiya" };
+    $('#d').html(detail.name);
+    var b ="hello good morning....how are your how's your day....";
+    $('#e').html(b.length);
+  });
+    });
+</script>
+</html>
